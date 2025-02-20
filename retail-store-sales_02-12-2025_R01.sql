@@ -1,12 +1,3 @@
----------------------------------------------------------------------------------------------------------------------------------------------------
-
------------------------------------------------------ DATA CLEANING AND EXPLORATION WITH SQL ------------------------------------------------------
-
----------------------------------------------------------------------------------------------------------------------------------------------------
-
-
-
----------------------------------------------------------------------------------------------------------------------------------------------------
 
 ------------------------------------------------------------------ DATA CLEANING ------------------------------------------------------------------
 
@@ -146,7 +137,7 @@ SELECT *
 FROM PortfolioProject.dbo.retail_store_sales
 WHERE Quantity IS NULL
 
--- Create new column 'Imputed_Quantity' to contain the calculated quantities.
+-- Create new column 'Imputed_Quantity' to contain the calculated quantities
 
 ALTER TABLE PortfolioProject.dbo.retail_store_sales
 ADD Imputed_Quantity int
@@ -177,7 +168,7 @@ WITH ImputedQuantities AS (
 			AVG(CASE WHEN Payment_Method = 'Digital Wallet' THEN Quantity ELSE NULL END) AS Avg_Digital_Wallet,
 			AVG(CASE WHEN Payment_Method = 'Credit Card' THEN Quantity ELSE NULL END) AS Avg_Credit_Card,
 			AVG(CASE WHEN Payment_Method = 'Cash' THEN Quantity ELSE NULL END) AS Avg_Cash
-		FROM PortfolioProject.dbo.retail_store_sales 
+		FROM PortfolioProject.dbo.retail_store_salesÂ 
 		GROUP BY
 			Customer_ID, 
 			Category, 
@@ -436,7 +427,7 @@ WHERE Rank <= 10
 ORDER BY Rank ASC
 
 ----- PAYMENT METHOD ANALYSIS -----
--- The most commonly used payment method was cash, and the average transaction value was the greatest for cash.
+-- The most commonly used payment method was cash, and the average transaction value was the greatest for cash
 
 SELECT 
 	Payment_Method,
@@ -459,7 +450,7 @@ ORDER BY SUM(Imputed_Total_Spent) DESC
 
 ----- LOCATION ANALYSIS -----
 
--- More purchases occurred online as opposed to in-store.
+-- More purchases occurred online as opposed to in-store
 -- Online sales also generated greater revenue
 
 SELECT 

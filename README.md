@@ -110,8 +110,7 @@ Item, Price_Per_Unit, Quantity, and Total_Spent columns contain nulls that will 
 ## **Populating Missing Values**
 **Goals:** Populate null values in 'Item', 'Price_Per_Unit', 'Quantity', and 'Total_Spent' 
 
-<br>
-<br>
+---
 
 ### **Price_Per_Unit Column**
 Nulls were populated using the equation ('Total_Spent')/('Quantity') = 'Price_Per_Unit'.
@@ -122,8 +121,7 @@ UPDATE PortfolioProject.dbo.retail_store_sales
 SET Price_Per_Unit = Total_Spent / Quantity
 WHERE Price_Per_Unit IS NULL
 ```
-<br>
-<br>
+---
 
 ### **Item Column**
 Each item has a unique price within the item's category. To populate the 'Item' column, data from the 'Category' and 'Price_Per_Unit' columns are concatenated and inserted into a new column called 'Category_Price_Per_Unit'.
@@ -194,7 +192,9 @@ FROM PortfolioProject.dbo.retail_store_sales
 |---|
 |0|
 
-### **Quantity**
+---
+
+### **Quantity Column**
 The nulls in the 'Quantity' column are populated using a multi-stage imputation strategy:
   1. Calculate the average quantity purchased for each combination of 'Customer_ID', 'Category', and 'Payment_Method'.
   2. Use these calculations to populate null values in 'Quantity', prioritizing the specific average for the customer's category and payment method.
@@ -202,6 +202,7 @@ The nulls in the 'Quantity' column are populated using a multi-stage imputation 
   4. If no average is available for any payment method for the customer and category, populate the field with the customer's overall average quantity.
 
 Create a new column called 'Imputed_Quantity'. This column will contain the calculated quantities while maintaining the original data in the 'Quantity' column.
+
 **Query:**
 ```sql
 -- Create new column 'Imputed_Quantity'
@@ -255,7 +256,9 @@ INNER JOIN ImputedQuantities AS iq
 	AND r.Item = iq.Item
 WHERE r.Quantity IS NULL
 ```
+
 Create a new column 'Quantity_Combined' to contain the combined data from the 'Quantity' and 'Imputed_Quantity' columns.
+
 **Query:**
 ```sql
 -- Create column 'Combined_Quantity'
@@ -272,12 +275,16 @@ SELECT
 FROM PortfolioProject.dbo.retail_store_sales
 ```
 **Output:**
+
 |Quantity_Nulls|
 |---|
 |0|
 
-### **Total_Spent**
+---
+
+### **Total_Spent Column**
 Populate nulls in 'Total_Spent' column using the equation ('Price_Per_Unit') * ('Quantity_Combined') = ('Imputed_Total_Spent')
+
 **Query:**
 ```sql
 -- Create column 'Imputed_Total_Spent'
@@ -303,7 +310,8 @@ FROM PortfolioProject.dbo.retail_store_sales
 
 ## **Standardizing Column Formatting**
 ### **Transaction_Date**
-Convert datatype from 'datetime' to 'date'.
+Convert data type from 'datetime' to 'date'.
+
 **Query:**
 ```sql
 -- Datetime to date conversion
@@ -321,6 +329,7 @@ New columns are created for further data exploration.
 
 ### **Week_Day Column**
 The 'Week_Day' column is created to determine the day of the week (Monday - Sunday) that a transaction took place based on the 'Transaction_Date' column.
+
 **Query:**
 ```sql
 -- Create new column 'Week_Day'
@@ -348,8 +357,11 @@ FROM PortfolioProject.dbo.retail_store_sales
 |TXN_9458126|	2022-05-07	|Saturday|
 |TXN_4575373|	2022-10-02	|Sunday|
 
+---
+
 ### **Month Column**
 The 'Month' column is created to determine the month (January - December) in which a transaction took place based on the 'Transaction_Date' column.
+
 **Query:**
 ```sql
 -- Create new column 'Month'

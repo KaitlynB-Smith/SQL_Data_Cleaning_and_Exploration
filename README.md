@@ -1181,5 +1181,5 @@ This project emphasizes data cleaning and light exploration using SQL. Using the
 <br>
 <br>
 ## Further Analysis
-It would be interesting to collect data of a greater number of customers and analyze customer purchasing trends among different demographics, such as age, sex, income level, etc. It would also be interesting to determine customer's lifetime value and identify factors that may affect the lifetime value. 
+It would be interesting to collect data of a greater number of customers and analyze customer purchasing trends among different demographics, such as age, sex, income level, etc. It would also be interesting to determine lifetime value of customers and identify factors that may affect the lifetime value. 
 
